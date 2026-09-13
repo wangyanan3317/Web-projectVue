@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -127,7 +127,7 @@ const excerpt = (text, n = 42) => (text.length > n ? text.slice(0, n) + '…' : 
       <el-row :gutter="20" v-if="list.length">
         <el-col v-for="item in list" :key="item.id" :xs="24" :sm="12" :md="8">
           <el-card shadow="hover" class="item-card hover-lift">
-            <div class="item-cover" :style="{ backgroundImage: `url(${item.image})` }" @click="goDetail(item.id)">
+            <div class="item-cover" :style="{ background: `url(${item.image})` }" @click="goDetail(item.id)">
               <el-tag size="small" effect="dark" type="danger" class="item-level">{{ item.level }}</el-tag>
               <el-tag size="small" effect="plain" class="item-category">{{ item.category }}</el-tag>
             </div>

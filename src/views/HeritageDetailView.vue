@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -111,7 +111,7 @@ onMounted(() => {
         <!-- ===== 项目主体 ===== -->
         <el-card shadow="never" class="main-card">
           <div class="main-flex">
-            <div class="cover" :style="{ backgroundImage: `url(${detail.image})` }"></div>
+            <div class="cover" :style="{ background: `url(${detail.image})` }"></div>
             <div class="info">
               <div class="title-row">
                 <h2 class="name">{{ detail.name }}</h2>
@@ -158,7 +158,7 @@ onMounted(() => {
           <el-row :gutter="20">
             <el-col v-for="item in detail.related" :key="item.id" :xs="24" :sm="8">
               <div class="related-card hover-lift" @click="goDetail(item.id)">
-                <div class="related-cover" :style="{ backgroundImage: `url(${item.image})` }"></div>
+                <div class="related-cover" :style="{ background: `url(${item.image})` }"></div>
                 <div class="related-info">
                   <h4>{{ item.name }}</h4>
                   <p>{{ item.region }}</p>

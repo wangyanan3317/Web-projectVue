@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getStats, getHotHeritages } from '@/api/heritage'
@@ -99,7 +99,7 @@ const formatCount = (n) => (n >= 10000 ? (n / 10000).toFixed(1) + 'w' : n)
         <el-row :gutter="20" v-loading="loading">
           <el-col v-for="item in hotList" :key="item.id" :xs="24" :sm="12" :md="8">
             <el-card shadow="hover" class="hot-card hover-lift" @click="goDetail(item.id)">
-              <div class="hot-cover" :style="{ backgroundImage: `url(${item.image})` }">
+              <div class="hot-cover" :style="{ background: `url(${item.image})` }">
                 <el-tag size="small" effect="dark" type="danger" class="hot-level">{{ item.level }}</el-tag>
               </div>
               <div class="hot-body">

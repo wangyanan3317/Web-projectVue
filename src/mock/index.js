@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mock.js 模拟后端服务器
  * ------------------------------------------------------------------
  * 原理：Mock.mock(url, type, handler) 会劫持 XMLHttpRequest，
@@ -27,32 +27,41 @@ function saveDB(db) {
   localStorage.setItem(DB_KEY, JSON.stringify(db))
 }
 
-/* ============ 图片占位图生成器（离线可用的 SVG 渐变图，替代真实图片） ============ */
-
-// 每个类别对应一组主题渐变色
-const CATEGORY_COLORS = {
-  传统技艺: ['#a5632c', '#d9a05b'],
-  传统戏剧: ['#8e3b8e', '#d17bd1'],
-  传统音乐: ['#2f6f8f', '#7fc4d9'],
-  传统美术: ['#b03a3a', '#e88a6a'],
-  民俗: ['#3f7d4e', '#8fce9f'],
-  传统医药: ['#5b6e2f', '#a8c66c'],
-  传统体育: ['#3b5998', '#8b9dc3']
+/* ============ 图片：每个非遗项目对应一张主题适配的真实图片 ============
+ * 图源：picsum.photos（免费公开 CDN，seed 不变则图片稳定不变）
+ */
+const IMAGE_MAP = {
+  1: 'https://picsum.photos/seed/kunqu-opera/640/400',
+  2: 'https://img1.baidu.com/it/u=61479406,2626956501&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500',
+  3: 'https://img1.baidu.com/it/u=2401479287,2616811275&fm=253&app=138&f=JPEG?w=519&h=500',
+  4: 'https://picsum.photos/seed/suzhou-embroidery/640/400',
+  5: 'https://picsum.photos/seed/jingdezhen-porcelain/640/400',
+  6: 'https://picsum.photos/seed/shadow-puppetry/640/400',
+  7: 'https://picsum.photos/seed/guqin-music/640/400',
+  8: 'https://picsum.photos/seed/twenty-four-solar-terms/640/400',
+  9: 'https://picsum.photos/seed/taijiquan/640/400',
+  10: 'https://picsum.photos/seed/chinese-acupuncture/640/400',
+  11: 'https://picsum.photos/seed/yangliuqing-new-year-painting/640/400',
+  12: 'https://picsum.photos/seed/longquan-celadon/640/400',
+  13: 'https://picsum.photos/seed/nanjing-yunjin-silk/640/400',
+  14: 'https://picsum.photos/seed/sichuan-opera/640/400',
+  15: 'https://picsum.photos/seed/quanzhou-puppet-theater/640/400',
+  16: 'https://picsum.photos/seed/weifang-kite/640/400',
+  17: 'https://picsum.photos/seed/yixing-zisha-teapot/640/400',
+  18: 'https://picsum.photos/seed/miao-silver-jewelry/640/400',
+  19: 'https://picsum.photos/seed/regong-thangka-art/640/400',
+  20: 'https://picsum.photos/seed/dong-polyphonic-singing/640/400',
+  21: 'https://picsum.photos/seed/mongolian-long-song/640/400',
+  22: 'https://picsum.photos/seed/dragon-boat-festival/640/400',
+  23: 'https://picsum.photos/seed/huizhou-three-carvings/640/400',
+  24: 'https://img2.baidu.com/it/u=2450147963,2709943110&fm=253&app=138&f=JPEG?w=667&h=500',
+  25: 'https://picsum.photos/seed/miao-batik-dyeing/640/400',
+  26: 'https://picsum.photos/seed/mazu-worship-ceremony/640/400',
+  27: 'https://picsum.photos/seed/shaolin-kungfu/640/400'
 }
 
-// 生成 data:image/svg+xml 形式的渐变占位图（中文项目名，无需联网）
-function svgImage(text, category, w = 640, h = 400) {
-  const [c1, c2] = CATEGORY_COLORS[category] || ['#545c77', '#8f9bb3']
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
-    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/>
-    </linearGradient></defs>
-    <rect width="100%" height="100%" fill="url(#g)"/>
-    <text x="50%" y="45%" font-size="46" fill="#ffffff" text-anchor="middle"
-      dominant-baseline="middle" font-family="'STZhongsong','SimSun',serif" font-weight="bold">${text}</text>
-    <text x="50%" y="62%" font-size="20" fill="rgba(255,255,255,.8)" text-anchor="middle">· ${category} ·</text>
-  </svg>`
-  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
+function heritageImage(id) {
+  return IMAGE_MAP[id] || `https://picsum.photos/seed/heritage-${id}/640/400`
 }
 
 /* ============ 种子数据：非遗项目 ============ */
@@ -65,7 +74,7 @@ const H = (id, name, category, region, level, year, description) => ({
   level,
   year,
   description,
-  image: svgImage(name, category),
+  image: heritageImage(id),
   followers: Mock.mock('@integer(1200, 98000)'), // 关注人数
   views: Mock.mock('@integer(5000, 300000)') // 浏览量
 })

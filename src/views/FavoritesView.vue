@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -45,7 +45,7 @@ onMounted(() => {
       <el-row :gutter="20" v-if="list.length">
         <el-col v-for="item in list" :key="item.id" :xs="24" :sm="12" :md="8">
           <el-card shadow="hover" class="fav-card hover-lift">
-            <div class="fav-cover" :style="{ backgroundImage: `url(${item.image})` }" @click="goDetail(item.id)">
+            <div class="fav-cover" :style="{ background: `url(${item.image})` }" @click="goDetail(item.id)">
               <el-tag size="small" effect="plain" class="fav-category">{{ item.category }}</el-tag>
             </div>
             <div class="fav-body">
